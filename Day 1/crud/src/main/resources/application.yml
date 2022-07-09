@@ -1,0 +1,76 @@
+# need to provide configuration
+# if already is configured with mysql, password must be configured
+server:
+  port: 8082
+
+spring:
+  profiles:
+    active: dev
+
+---
+
+spring:
+  # profiles: dev
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: # password is required
+    url: jdbc:mysql://localhost:3306/crud
+    username: root
+  jpa:
+    generate-ddl: true
+    database: mysql
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+welcome:
+  message: Crud application dev team
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: qa
+  # profiles: qa
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: # password is required
+    url: jdbc:mysql://localhost:3306/crud-qa
+    username: root
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+welcome:
+  message: Crud application QA team
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env,beans"
+
+---
+
+spring:
+  # profiles: prod
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: # password is required
+    url: jdbc:mysql://localhost:3306/crud-prod
+    username: root
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+welcome:
+  message: Crud application production team

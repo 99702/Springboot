@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>README.html</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+
+</head>
+
+<body>
+
+<h1>Day 3</h1>
+
+<ul>
+<li><a href="#Annotations">Annotations</a></li>
+<li><a href="#DependencyInjection">Dependency injection</a></li>
+<li><a href="#web-annotation">Web Annotations</a></li>
+<li><a href="#Relations">relationship</a></li>
+</ul>
+
+<h1>DependencyInjection</h1>
+
+<h1>Annotations</h1>
+
+<ul>
+<li>Tag that represent metadata  i.e class,interface,methods,fields to provide additional information for java compiler.</li>
+<li><p>Examples  </p>
+
+<ul>
+<li>@Override  - make sure subclass is overriding parent class.</li>
+<li>@SupressWarnings  - to supress warnings to compiler </li>
+<li>@Deprecated   - to provide information about depretiation of method or class</li>
+</ul></li>
+<li><p>There are three types of annotations:</p>
+
+<ul>
+<li>Marker annotation : no method, eg: <code>@interface MyAnnotation</code></li>
+<li>Single Value annotation : annotation with one method <code>@interface Myannotation{int value();}</code></li>
+<li>Multi value annotation: more than one method</li>
+</ul></li>
+</ul>
+
+<h4>Spring boot annotations</h4>
+
+<p>Spring boot annotation is a form of metadata that provide data about a program. Some of core spring boot 
+annotations are as follow:
+* @<code>Required</code>
+* @<code>Autowired</code>
+* @<code>SpringBootApplication</code>
+* @<code>EnableAutoconfiguration</code>
+* @<code>Component</code>
+* @<code>Controller</code>
+* @<code>RestController</code>
+* @<code>Service</code>
+* @<code>Repository</code>
+* @<code>ComponentScan</code>
+* @<code>Bean</code></p>
+
+<p>For testing we have
+* @<code>SpringBootTest</code></p>
+
+<p>@<code>Required</code>
+It applies the bean setter method. It indicates that the annotated bean must be populated at configuration
+time with the required property, else it throw an exception <code>BeanInitializationException</code>.
+Example 
+<code>
+public class Machine <br />
+{ <br />
+private Integer cost; <br />
+@Required <br />
+public void setCost(Integer cost) <br />
+{ <br />
+this.cost = cost; <br />
+} <br />
+public Integer getCost() <br />
+{ <br />
+return cost; <br />
+} <br />
+}
+</code></p>
+
+<p>@<code>Autowired</code>
+Autowire spring bean on setter methods, instance variables and constructor. 
+When we use @Autowired annotation, the spring container autowires the bean on setter method,
+instance variables and constructors.
+https://stackoverflow.com/questions/3153546/how-does-autowiring-work-in-spring
+```
+@Controller // Defines that this class is a spring bean
+@RequestMapping("/users")
+public class SomeController {</p>
+
+<pre><code>// Tells the application context to inject an instance of UserService here
+@Autowired
+private UserService userService;
+
+@RequestMapping("/login")
+public void login(@RequestParam("username") String username,
+       @RequestParam("password") String password) {
+
+    // The UserServiceImpl is already injected and you can use it
+    userService.login(username, password);
+}
+</code></pre>
+
+<p>}
+https://stackoverflow.com/questions/3153546/how-does-autowiring-work-in-spring
+```</p>
+
+<p>@<code>SpringBootApplication</code>
+Signifies that it is spring boot application. It is composite annotation combining
+* @<code>SpringBootConfiguration</code>
+* @<code>EnableAutoConfiguration</code>
+* @<code>ComponentScan</code></p>
+
+<p>@<code>Componentscan</code>
+Enables component scanning. This lets you declare other classes with annotations like @<code>Component</code>,
+@<code>Controller</code> and @<code>Service</code> to have spring automatically discover and register them as components
+in the spring application context.</p>
+
+<p>@<code>EnableAutoConfiguration</code>
+Enables Spring boot automatic configuration. This annotation tells Spring boot automatically configure 
+any components that it thinks we'll need.</p>
+
+<p>@<code>SpringBootConfiguration</code>
+Designates class as configuration class . It is specialized form for <code>@Configuration</code> annotation.</p>
+
+<p>@<code>Component</code>
+It is annotation to be used so that Spring boot application automatically discovers it and create it as bean
+in the <code>Spring application context</code></p>
+
+<p>@<code>Controller</code>
+It is used to mark classes as Spring MVC Controller.
+This annotation is just a specialized version of @Component and 
+it allows the controller classes to be auto-detected based on classpath scanning.</p>
+
+<p>@<code>RestController</code>
+This annotation is a specialized version of @Controller which adds @Controller and @ResponseBody annotation automatically. 
+so we do not have to add @ResponseBody to our mapping methods. That means @ResponseBody is default active.
+It also converts the response to JSON/XML automatically as @ResponseBody makes the returned objects to something that could be in the body, e.g. JSON or XML.</p>
+
+<p>@<code>Service</code>
+These class files are used to write business logic. It contains a interface extending various repositories builtin such as handling crud application.
+Those Service interface are implemented in different class and annotated them as <code>@Service</code> and business logic is written there.</p>
+
+<p>@<code>Repository</code>
+The Spring @Repository annotation is a specialization of the @Component annotation
+which indicates that an annotated class is a “Repository”, which can be used as a mechanism for encapsulating storage, retrieval, and search behavior which emulates a collection of objects</p>
+
+<p>@<code>SpringBootTest</code>
+The @<code>SpringBootTest</code> annotation tells Spring Boot to look for a main configuration class
+(one with @<code>SpringBootApplication</code>, for instance) and use that to start a Spring application context.</p>
+
+<p>@<code>DataJpaTest</code>
+Test the repository layer once it is completed , Database wont be impacted.</p>
+
+<p><a href="https://lightrun.com/java/the-complete-list-of-spring-boot-annotations-you-must-know">What's the difference between @Component, @Repository &amp; @Service annotations in Spring?</a></p>
+
+<p><a href="https://lightrun.com/java/the-complete-list-of-spring-boot-annotations-you-must-know">the-complete-list-of-spring-boot-annotations-you-must-know</a></p>
+
+<h1>DependencyInjection</h1>
+
+<p>It is a design pattern that helps in executing the Inversion of Control.
+The depth of dependency injection is for compelling the dependencies.</p>
+
+<p>https://blog.knoldus.com/dependency-injection-in-spring-boot/</p>
+
+<p>https://dzone.com/articles/dependency-injection-in-spring</p>
+
+<h1>Web-annotation</h1>
+
+<p>Spring provides web annotation through <code>org.springframework.web.bind.annotation</code> package.</p>
+
+<p>Some of commonly used web annotation for <code>RequestMapping</code> are</p>
+
+<ul>
+<li>@<code>RequestMapping</code></li>
+<li>@<code>RequestBody</code></li>
+<li>@<code>PathVariable</code></li>
+<li>@<code>RequestParam</code></li>
+</ul>
+
+<p>@<code>RequestMapping</code>
+To handle the mapping between web requests. It can be applied to <em>class</em> or <em>method</em> level 
+in a controller.
+for example</p>
+
+<p>```
+@Controller
+@RequestMapping("/users")
+public class UserController {</p>
+
+<pre><code>@RequestMapping("/user")
+public String getUser() {
+
+}
+</code></pre>
+
+<p>}</p>
+
+<p>// or</p>
+
+<p>@Controller
+public class UserController {</p>
+
+<pre><code>@RequestMapping("/user")
+public String getUser() {
+
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>@<code>RequestBody</code>
+RequestBody annotation maps the HttpRequest body to a transfer or domain object, enabling automatic
+deserialization . It is used to fetch body given by client into to request to the server.</p>
+
+<p>@<code>RequestParam</code>
+It is used to extract the query params , form params from the request.
+https://www.baeldung.com/spring-request-param</p>
+
+<p>@<code>PathVariable</code>
+If in requestMapping , we need to send some parameter
+<code>@GetMapping("/api/employeeswithvariable/{id}")</code> i.e <code>id</code>
+then we use <code>@PathVariable</code> annotation to get that <code>id</code> and put it into body . For example
+```
+@GetMapping("/api/employeeswithvariable/{id}")
+@ResponseBody
+public String getEmployeesByIdWithVariableName(@PathVariable("id") String employeeId) {
+    return "ID: " + employeeId;
+}
+// for multiple</p>
+
+<p>@GetMapping("/api/employees/{id}/{name}")
+@ResponseBody
+public String getEmployeesByIdAndName(@PathVariable String id, @PathVariable String name) {
+    return "ID: " + id + ", name: " + name;
+}</p>
+
+<p>```</p>
+
+<p>https://www.baeldung.com/spring-pathvariable</p>
+
+<p>https://www.baeldung.com/spring-requestmapping
+https://www.baeldung.com/spring-new-requestmapping-shortcuts</p>
+
+<h1>Relations</h1>
+
+<p>In spring relations are made by following annotation:
+* @OnetoOne
+It is used to implement one to one relationship between two tables. </p>
+
+<ul>
+<li><p>@<code>OneToMany</code> @<code>ManyToOne</code></p></li>
+<li><p>@<code>ManyToMany</code></p></li>
+</ul>
+
+<p>For defining entities we define following annotation</p>
+
+<ul>
+<li>@<code>Entity</code>: Spring boot recognizes it is entity class.</li>
+<li>@<code>Id</code> : It is given to the primary key of an entity.</li>
+<li>@<code>GeneratedValue</code>: It is use for generation of next autoincrement value. some of are <code>GenerationType.Identity</code>,<code>GenerationType.Auto</code>, <code>GenerationType.Sequence</code>. Where <code>Sequence</code> creates a new table of incremental value. 
+if we want sequence to be in different we should have similar example as below,
+```
+@SequenceGenerator(
+        name="student<em>sequence",
+        sequenceName="student</em>sequence",
+        allocationSize = 1
+)
+@GeneratedValue(
+        strategy=GenerationType.SEQUENCE,
+        generator = "student_sequence"
+)</li>
+</ul>
+
+<p><code>``
+* @</code>Embeddable<code>@</code>Embedded`:
+If we dont want to make a class an entity in database bust still want to seperate some fields , we can do so by using these annotations. For example</p>
+
+<p>```
+@Embeddable: to the outside class to which to be included.
+@Embeded: should be put to the column defined of parent class.</p>
+
+<p>//another class
+@Embeddable
+class Another {
+private String name ;
+}</p>
+
+<p>// parent class
+{
+.....
+@Embedded
+private Another another;
+}</p>
+
+<p>```</p>
+
+<ul>
+<li>@<code>AttributeOverrides</code>
+If the table , rows is already defined . We can override that row by our rows using this annotation.
+```
+@AttributeOverrides({
+    @AttributeOverride(name="name", column = @Column(name="guardian<em>name")),
+    @AttributeOverride(name="email", column = @Column(name="guardian</em>email")),
+    @AttributeOverride(name="mobile", column = @Column(name="guardian_mobile"))
+})</li>
+</ul>
+
+<p>// where name is <code>variable name defined in that class</code>,
+         column is <code>that table name to be  overrided</code></p>
+
+<p>```</p>
+
+<ul>
+<li><p>@<code>Table</code> : It is used to provide the given entity name to be saved in to the database. For example <code>@Table(name="laptop_table")</code> creates <code>laptop_table</code> table in the database.</p></li>
+<li><p>@<code>Column</code>: It is used to manually specify the name of the row in the table . If not given, spring boot automatically generates the name from the variables.
+example,
+```
+@Column(name="email_address")
+private String emailId;</p></li>
+</ul>
+
+<p>```</p>
+
+</body>
+</html>
