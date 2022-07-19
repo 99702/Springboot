@@ -21,7 +21,7 @@ public class SecurityConfig {
                 .disable()
                 .authorizeHttpRequests()
                 .antMatchers(WHITE_LIST_URLS).permitAll()
-                .antMatchers("/api/**").authenticated();
+                .antMatchers("").authenticated();
         return http.build();
     }
 }
